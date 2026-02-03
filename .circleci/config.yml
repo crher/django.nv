@@ -13,6 +13,15 @@ jobs:
       - checkout
       - run: echo "This is a test step"
 
+  release:
+    machine: true                                        # What is this for?
+    steps:
+      - checkout
+
+      - run: |
+          docker build -t $DOCKER_USERNAME/django.nv .   # Build the application into Docker image
+          docker push $DOCKER_USERNAME/django.nv         # Push the image into registry
+
   integration:
     docker:
       - image: cimg/base:stable
